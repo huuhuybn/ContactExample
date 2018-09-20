@@ -26,6 +26,8 @@ public class ContactActivity extends AppCompatActivity {
 
     private Button btnLoadContacts;
     private RecyclerView lvListContact;
+    private Button btnLoadBookMark;
+
 
     private ContactAdapter contactAdapter;
     private List<MyContact> myContacts;
@@ -43,6 +45,15 @@ public class ContactActivity extends AppCompatActivity {
     }
 
     private void initActions() {
+
+        btnLoadBookMark.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+            }
+        });
+
 
         btnLoadContacts.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,6 +130,8 @@ public class ContactActivity extends AppCompatActivity {
     public void initViews() {
         btnLoadContacts = findViewById(R.id.btnLoadContacts);
         lvListContact = findViewById(R.id.lvListContact);
+        btnLoadContacts = findViewById(R.id.btnLoadContacts);
+        btnLoadBookMark = findViewById(R.id.btnLoadBookMark);
 
     }
 
