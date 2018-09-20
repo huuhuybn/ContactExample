@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -46,7 +47,7 @@ public class ContactActivity extends AppCompatActivity {
         btnLoadContacts.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Uri uri = Uri.parse("");
+                Uri uri = Uri.parse("content://contacts/people");
                 myContacts = new ArrayList<>();
                 CursorLoader cursorLoader =
                         new CursorLoader(ContactActivity.this, uri,
@@ -61,10 +62,12 @@ public class ContactActivity extends AppCompatActivity {
                     String column_id = ContactsContract.Contacts._ID;
                     String column_name = ContactsContract.Contacts.DISPLAY_NAME;
 
+
                     // lay du lieu tu con tro Cursor thong qua column Name (Ten Cot)
                     int id = cursor.getInt(cursor.getColumnIndex(column_id));
                     String name = cursor.getString(cursor.getColumnIndex(column_name));
 
+                    Log.e("NAME", name);
                     // gan du lieu vao MyContact
 
                     MyContact myContact = new MyContact();
@@ -74,8 +77,10 @@ public class ContactActivity extends AppCompatActivity {
                     // gan du lieu vao ArrayList
                     myContacts.add(myContact);
 
-                }
+                    cursor.moveToNext();
 
+                }
+                cursor.close();
                 // khai bao va set data cho List
                 contactAdapter = new ContactAdapter(ContactActivity.this, myContacts);
 
@@ -83,8 +88,6 @@ public class ContactActivity extends AppCompatActivity {
 
                 lvListContact.setLayoutManager(linearLayoutManager);
                 lvListContact.setAdapter(contactAdapter);
-
-
 
 
             }

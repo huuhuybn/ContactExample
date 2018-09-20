@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:padding="8dp">
 
@@ -22,6 +22,7 @@
             android:id="@+id/tvName"
             style="@style/TextAppearance.AppCompat.Large"
             android:layout_width="match_parent"
+            android:textColor="@color/colorAccent"
             android:layout_height="wrap_content"
             android:text="Huy Nguyen" />
 
@@ -36,6 +37,7 @@
 
         <TextView
             android:id="@+id/tvPhone"
+            android:textColor="@color/colorAccent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="091930190" />
