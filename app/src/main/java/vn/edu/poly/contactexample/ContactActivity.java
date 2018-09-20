@@ -1,9 +1,14 @@
 package vn.edu.poly.contactexample;
 
+import android.database.Cursor;
+import android.net.Uri;
+import android.provider.ContactsContract;
+import android.support.v4.content.CursorLoader;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.Button;
 
 import java.util.ArrayList;
@@ -30,8 +35,60 @@ public class ContactActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact);
         initViews();
-        initData();
+        //initData();
+        initActions();
 
+
+    }
+
+    private void initActions() {
+
+        btnLoadContacts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Uri uri = Uri.parse("");
+                myContacts = new ArrayList<>();
+                CursorLoader cursorLoader =
+                        new CursorLoader(ContactActivity.this, uri,
+                                null, null, null, null);
+                Cursor cursor = cursorLoader.loadInBackground();
+                cursor.moveToFirst();
+
+                // Neu kiem tra thay vi tri cuoi cung ko con du lieu thi ket thuc vong while
+                while (cursor.isAfterLast() == false) {
+
+                    // khai bao 2 cot trong bang Contact
+                    String column_id = ContactsContract.Contacts._ID;
+                    String column_name = ContactsContract.Contacts.DISPLAY_NAME;
+
+                    // lay du lieu tu con tro Cursor thong qua column Name (Ten Cot)
+                    int id = cursor.getInt(cursor.getColumnIndex(column_id));
+                    String name = cursor.getString(cursor.getColumnIndex(column_name));
+
+                    // gan du lieu vao MyContact
+
+                    MyContact myContact = new MyContact();
+                    myContact.name = name;
+                    myContact.phone = "" + id;
+
+                    // gan du lieu vao ArrayList
+                    myContacts.add(myContact);
+
+                }
+
+                // khai bao va set data cho List
+                contactAdapter = new ContactAdapter(ContactActivity.this, myContacts);
+
+                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ContactActivity.this);
+
+                lvListContact.setLayoutManager(linearLayoutManager);
+                lvListContact.setAdapter(contactAdapter);
+
+
+
+
+            }
+        });
 
     }
 
